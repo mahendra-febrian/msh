@@ -1,6 +1,7 @@
 import sys
 import os
 import subprocess
+import shlex
 
 def find_in_PATH(command):
     for path in os.environ.get("PATH", "").split(os.pathsep):
@@ -20,23 +21,9 @@ def main():
         # Wait for user input
         command = input()
 
-        # Parse single quotes
-        tokens = []
-        current = ""
-        is_in_single_quotes = False
-
-        for character in command:
-            if character == "'":
-                is_in_single_quotes = not is_in_single_quotes
-            elif character == " " and not is_in_single_quotes:
-                if current:
-                    tokens.append(current)
-                    current = ""
-            else:
-                current += character
-
-        if current:
-            tokens.append(current)
+        parts = shlex.split(command);
+        command = parts[0]
+        arguments = parts[1:]
 
         # Check if the user input refers to the "exit" command
         if command == "exit":
@@ -44,7 +31,7 @@ def main():
 
         # Check if the user input refers to the "echo" command
         elif command.startswith("echo"):
-            print(command[5:])
+            print(arguments)
 
         # Check if the user input refers to the "pwd" command
         elif command == "pwd":
@@ -52,7 +39,6 @@ def main():
 
         # Check if the user input refers to the "cd" command
         elif command.startswith("cd"):
-            arguments = command[3:]
 
             if os.path.exists(arguments):
                 os.chdir(arguments)
@@ -64,7 +50,6 @@ def main():
 
         # Check if the user input refers to the "type" command
         elif command.startswith("type"):
-            arguments = command[5:]
 
             # Check if the argument refers to a shell builtin
             if arguments in ["exit", "echo", "type", "pwd", "cd"]:
