@@ -1,9 +1,28 @@
 import sys
 import os
 
+def search_in_PATH(command):
+    found = False
+
+    for directory in path_dirs:
+        path = os.path.join(directory, command)
+                
+        if os.path.exists(path) and os.access(path, os.X_OK):
+            full_path = path
+            found = True
+            return path
+            break
+
+    # If the command_name is not found
+    if not found:
+        return False
 
 def main():
     while True:
+        #Initialize path
+        path = os.environ.get("PATH", "")
+        path_dirs = path.split(os.pathsep)
+
         # TODO: Uncomment the code below to pass the first stage
         sys.stdout.write("$ ")
 
@@ -28,26 +47,30 @@ def main():
 
             # Check if the argument exists in the PATH
             else:
-                path = os.environ.get("PATH", "")
-                path_dirs = path.split(os.pathsep)
-                found = False
+                res = search_in_PATH(command)
 
-                for directory in path_dirs:
-                    path = os.path.join(directory, command)
-                
-                    if os.path.exists(path) and os.access(path, os.X_OK):
-                        full_path = path
-                        print(f"{command} is {full_path}")
-                        found = True
-                        break
-
-                # If the command_name is not found
-                if not found:
+                if not res:
                     print(f"{command}: not found")
+                else:
+                    print(f"{command} is {res}")
 
-        # If the user_input is not found
+        # Check if the user input is an executable
         else:
-            print(f"{command}: command not found")
+            res = search_in_PATH(command)
+
+            if not res:
+                print(f"{command}: command not found")
+            else:
+                command = command.split(" ")
+                args = []
+
+                for arg in command
+                args.append(arg)
+
+                args = " ".join(args)
+                command = command[0]
+
+                os.system(f"{command} {args}")
 
 
 if __name__ == "__main__":
