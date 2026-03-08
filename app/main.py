@@ -28,7 +28,7 @@ def main():
         for character in command:
             if character == "'":
                 is_in_single_quotes = not is_in_single_quotes
-            elif char == " " and not is_in_single_quotes:
+            elif character == " " and not is_in_single_quotes:
                 if current:
                     tokens.append(current)
                     current = ""
