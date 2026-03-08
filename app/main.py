@@ -51,6 +51,7 @@ def main():
 
         # Check if the user input refers to the "type" command
         elif command.startswith("type"):
+            arguments = arguments[0]
 
             # Check if the argument refers to a shell builtin
             if arguments in ["exit", "echo", "type", "pwd", "cd"]:
