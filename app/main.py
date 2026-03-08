@@ -43,7 +43,7 @@ def main():
             command = command.split(" ")
             args = []
 
-            for arg in command:
+            for arg in command[1:]:
                 args.append(arg)
 
             args = " ".join(args)
