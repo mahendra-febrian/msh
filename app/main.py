@@ -31,7 +31,7 @@ def main():
 
         # Check if the user input refers to the "echo" command
         elif command.startswith("echo"):
-            print(arguments)
+            print(" ".join(args))
 
         # Check if the user input refers to the "pwd" command
         elif command == "pwd":
@@ -67,13 +67,13 @@ def main():
         # Check if the argument refers to an existing executable in the PATH
         else:
             command = command.split(" ")
-            args = command[1:]
+            arguments = command[1:]
             command = command[0]
 
             full_path = find_in_PATH(command)
 
             if full_path:
-                subprocess.call([command] + args)
+                subprocess.call([command] + arguments)
             else:
                 print(f"{command}: command not found")
 
