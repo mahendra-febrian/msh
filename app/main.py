@@ -43,11 +43,11 @@ def main():
             command = command.split(" ")
             args = []
 
-                for arg in command:
-                    args.append(arg)
+            for arg in command:
+                args.append(arg)
 
-                args = " ".join(args)
-                command = command[0]
+            args = " ".join(args)
+            command = command[0]
             
             res = search_in_PATH(command, path_dirs)
 
