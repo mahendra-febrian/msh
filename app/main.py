@@ -1,22 +1,6 @@
 import sys
 import os
 
-def search_in_PATH(command):
-    found = False
-
-    for directory in path_dirs:
-        path = os.path.join(directory, command)
-                
-        if os.path.exists(path) and os.access(path, os.X_OK):
-            full_path = path
-            found = True
-            return path
-            break
-
-    # If the command_name is not found
-    if not found:
-        return False
-
 def main():
     while True:
         #Initialize path
@@ -72,6 +56,21 @@ def main():
 
                 os.system(f"{command} {args}")
 
+def search_in_PATH(command):
+    found = False
 
+    for directory in path_dirs:
+        path = os.path.join(directory, command)
+                
+        if os.path.exists(path) and os.access(path, os.X_OK):
+            full_path = path
+            found = True
+            return path
+            break
+
+    # If the command_name is not found
+    if not found:
+        return False
+        
 if __name__ == "__main__":
     main()
