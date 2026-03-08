@@ -48,6 +48,9 @@ def main():
 
             if os.path.exists(arguments):
                 os.chdir(arguments)
+            elif arguments == "~":
+                home = os.getenv('HOME')
+                os.chdir(home)
             else:
                 print(f"cd: {arguments}: No such file or directory")
 
