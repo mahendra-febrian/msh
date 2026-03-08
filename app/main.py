@@ -66,9 +66,6 @@ def main():
 
         # Check if the argument refers to an existing executable in the PATH
         else:
-            command = command.split(" ")
-            command = command[0]
-
             full_path = find_in_PATH(command)
 
             if full_path:
