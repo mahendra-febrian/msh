@@ -33,7 +33,7 @@ def main():
                     tokens.append(current)
                     current = ""
             else:
-                current += char
+                current += character
 
         if current:
             tokens.append(current)
