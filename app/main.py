@@ -36,6 +36,7 @@ def main():
                     path = os.path.join(directory, command)
                 
                     if os.path.exists(path) and os.access(path, os.X_OK):
+                        full_path = path
                         print(f"{command} is {full_path}")
                         found = True
                         break
