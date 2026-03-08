@@ -8,9 +8,11 @@ def main():
 
         # Wait for user input
         command = input()
-        
+
         if command == "exit":
             break
+        if command.startswith("echo"):
+            print(command[5:])
         print(f"{command}: command not found")
 
 
