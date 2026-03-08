@@ -6,8 +6,10 @@ import shlex
 def find_in_PATH(command):
     for path in os.environ.get("PATH", "").split(os.pathsep):
         full_path = os.path.join(path, command)
+
         if os.path.isfile(full_path) and os.access(full_path, os.X_OK):
             return full_path
+
     return None
 
 def main():
@@ -18,9 +20,12 @@ def main():
         # Wait for user input
         command = input()
 
-        parts = shlex.split(command);
-        command = parts[0]
-        arguments = parts[1:]
+        tokens = shlex.split(command);
+        command = tokens[0]
+        arguments = tokens[1:]
+
+        if ">" in arguments or "1>" in arguments:
+            os.system(command)
 
         # Check if the user input refers to the "exit" command
         if command == "exit":
@@ -41,8 +46,7 @@ def main():
             if os.path.exists(directory):
                 os.chdir(directory)
             elif directory == "~":
-                home = os.getenv('HOME')
-                os.chdir(home)
+                os.chdir(os.getenv('HOME'))
             else:
                 print(f"cd: {directory}: No such file or directory")
 
