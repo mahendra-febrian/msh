@@ -24,7 +24,7 @@ def main():
 
             #Initialize path
             path = os.environ.get("PATH", "")
-                path_dirs = path.split(os.pathsep)
+            path_dirs = path.split(os.pathsep)
 
             # Check if the command_name is a shell builtin
             if command in ["exit", "echo", "type"]:
