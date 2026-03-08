@@ -1,5 +1,22 @@
 import sys
 import os
+import subprocess
+
+def search_in_PATH(command, path_dirs):
+    found = False
+
+    for directory in path_dirs:
+        path = os.path.join(directory, command)
+                
+        if os.path.exists(path) and os.access(path, os.X_OK):
+            full_path = path
+            found = True
+            return full_path
+            break
+
+    # If the command_name is not found
+    if not found:
+        return False
 
 def main():
     while True:
@@ -13,64 +30,43 @@ def main():
         # Wait for user input
         command = input()
 
-        # Check if the user input is the "exit" command
+        # Check if the user input refers to the "exit" command
         if command == "exit":
             break
 
-        # Check if the user input is the "echo" command
+        # Check if the user input refers to the "echo" command
         elif command.startswith("echo"):
             print(command[5:])
 
-        # Check if the user input is the "type" command
+        # Check if the user input refers to the "type" command
         elif command.startswith("type"):
-            command = command[5:]
+            arguments = command[5:]
 
-            # Check if the argument is a shell builtin
-            if command in ["exit", "echo", "type"]:
-                print(f"{command} is a shell builtin")
+            # Check if the argument refers to a shell builtin
+            if arguments in ["exit", "echo", "type"]:
+                print(f"{arguments} is a shell builtin")
 
-            # Check if the argument exists in the PATH
+            # Check if the argument refers to an existing executable in the PATH
             else:
-                res = search_in_PATH(command, path_dirs)
+                result = search_in_PATH(arguments, path_dirs)
 
-                if not res:
-                    print(f"{command}: not found")
+                if not result:
+                    print(f"{arguments}: not found")
                 else:
-                    print(f"{command} is {res}")
+                    print(f"{arguments} is {result}")
 
-        # Check if the user input is an executable
+        # Check if the argument refers to an existing executable in the PATH
         else:
-            command = command.split(" ")
-            args = []
+            result = search_in_PATH(command, path_dirs)
 
-            for arg in command[1:]:
-                args.append(arg)
-
-            args = " ".join(args)
-            command = command[0]
-            
-            res = search_in_PATH(command, path_dirs)
-
-            if not res:
+            if not result:
                 print(f"{command}: command not found")
             else:
-                os.system(f"{res} {args}")
-
-def search_in_PATH(command, path_dirs):
-    found = False
-
-    for directory in path_dirs:
-        path = os.path.join(directory, command)
+                command = command.split(" ")
+                args = command[1:]
+                command = command[0]
                 
-        if os.path.exists(path) and os.access(path, os.X_OK):
-            full_path = path
-            found = True
-            return path
-            break
-
-    # If the command_name is not found
-    if not found:
-        return False
+                subprocess.call([command] + args)
 
 if __name__ == "__main__":
     main()
