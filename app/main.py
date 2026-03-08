@@ -6,11 +6,8 @@ import shlex
 def find_in_PATH(command):
     for path in os.environ.get("PATH", "").split(os.pathsep):
         full_path = os.path.join(path, command)
-                
-        if os.path.isfile(full_path) and os.access(path, os.X_OK):
+        if os.path.isfile(full_path) and os.access(full_path, os.X_OK):
             return full_path
-
-    # If the command_name is not found
     return None
 
 def main():
