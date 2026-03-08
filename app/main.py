@@ -10,26 +10,38 @@ def main():
         # Wait for user input
         command = input()
 
-        # "exit" command
+        # Check if the user input is the "exit" command
         if command == "exit":
             break
 
-        # "echo" command
+        # Check if the user input is the "echo" command
         if command.startswith("echo"):
             print(command[5:])
 
-        # "type" command
+        # Check if the user input is the "type" command
         elif command.startswith("type"):
-            if command[5:] in ["exit", "echo", "type"]:
-                print(f"{command[5:]} is a shell builtin")
-            elif :
-                for
-                if os.path.exists(os.path.split(path, os.pathsep)[i]) and os.access(PATH, os.X_OK):
-                    print(f"{command[5:]} is {PATH}")
-            else:
-                print(f"{command[5:]}: not found")
+            command = command[5:]
 
-        # Command not found
+            # Check if the command_name is a shell builtin
+            if command in ["exit", "echo", "type"]:
+                print(f"{command} is a shell builtin")
+            
+            # Check if the command_name exsists in the PATH
+            elif:
+                path = os.environ.get("PATH", "")
+                path_dirs = path.split(os.pathsep)
+
+                for directory in path_dirs:
+                    path = os.path.join(directory, command)
+                    if os.path.exists(path) and os.access(path, os.X_OK):
+                        full_path = path
+                        print(f"{command} is {full_path}")
+                
+                # If the command_name is not found
+            else:
+                print(f"{command}: not found")
+
+        # If the user_input is not found
         else:
             print(f"{command}: command not found")
 
