@@ -57,15 +57,15 @@ def main():
 
         # Check if the argument refers to an existing executable in the PATH
         else:
+            command = command.split(" ")
+            args = command[1:]
+            command = command[0]
+
             result = search_in_PATH(command, path_dirs)
 
             if not result:
                 print(f"{command}: command not found")
             else:
-                command = command.split(" ")
-                args = command[1:]
-                command = command[0]
-                
                 subprocess.call([command] + args)
 
 if __name__ == "__main__":
