@@ -31,7 +31,7 @@ def main():
 
             # Check if the argument exists in the PATH
             else:
-                res = search_in_PATH(command)
+                res = search_in_PATH(command, path_dirs)
 
                 if not res:
                     print(f"{command}: not found")
@@ -40,23 +40,23 @@ def main():
 
         # Check if the user input is an executable
         else:
-            res = search_in_PATH(command)
-
-            if not res:
-                print(f"{command}: command not found")
-            else:
-                command = command.split(" ")
-                args = []
+            command = command.split(" ")
+            args = []
 
                 for arg in command:
                     args.append(arg)
 
                 args = " ".join(args)
                 command = command[0]
+            
+            res = search_in_PATH(command, path_dirs)
 
-                os.system(f"{command} {args}")
+            if not res:
+                print(f"{command}: command not found")
+            else:
+                os.system(f"{res} {args}")
 
-def search_in_PATH(command):
+def search_in_PATH(command, path_dirs):
     found = False
 
     for directory in path_dirs:
@@ -71,6 +71,6 @@ def search_in_PATH(command):
     # If the command_name is not found
     if not found:
         return False
-        
+
 if __name__ == "__main__":
     main()
