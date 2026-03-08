@@ -44,7 +44,12 @@ def main():
 
         # Check if the user input refers to the "cd" command
         elif command.startswith("cd"):
-            os.chdir(command[3:])
+            arguments = command[3:]
+
+            if os.path.exists(arguments):
+                os.chdir(arguments)
+            else:
+                print(f"cd: {arguments}: No such file or directory")
 
         # Check if the user input refers to the "type" command
         elif command.startswith("type"):
