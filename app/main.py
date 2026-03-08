@@ -31,7 +31,7 @@ def main():
 
         # Check if the user input refers to the "echo" command
         elif command.startswith("echo"):
-            print(" ".join(args))
+            print(" ".join(arguments))
 
         # Check if the user input refers to the "pwd" command
         elif command == "pwd":
