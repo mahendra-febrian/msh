@@ -38,15 +38,20 @@ def main():
         elif command.startswith("echo"):
             print(command[5:])
 
+        # Check if the user input refers to the "pwd" command
         elif command == "pwd":
             print(os.getcwd())
+
+        # Check if the user input refers to the "cd" command
+        elif command.startswith("cd"):
+            os.chdir(command[3:])
 
         # Check if the user input refers to the "type" command
         elif command.startswith("type"):
             arguments = command[5:]
 
             # Check if the argument refers to a shell builtin
-            if arguments in ["exit", "echo", "type", "pwd"]:
+            if arguments in ["exit", "echo", "type", "pwd", "cd"]:
                 print(f"{arguments} is a shell builtin")
 
             # Check if the argument refers to an existing executable in the PATH
