@@ -62,7 +62,7 @@ def main():
                 full_path = find_in_PATH(arguments)
 
                 if full_path:
-                    print(f"{arguments} is {result}")
+                    print(f"{arguments} is {full_path}")
                 else:
                     print(f"{arguments}: not found")
 
