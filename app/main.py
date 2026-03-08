@@ -5,7 +5,7 @@ import shlex
 
 def find_in_PATH(command):
     for path in os.environ.get("PATH", "").split(os.pathsep):
-        full_path = os.path.join(directory, command)
+        full_path = os.path.join(path, command)
                 
         if os.path.exists(path) and os.access(path, os.X_OK):
             return full_path
