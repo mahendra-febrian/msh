@@ -22,24 +22,26 @@ def main():
         elif command.startswith("type"):
             command = command[5:]
 
+            #Initialize path
+            path = os.environ.get("PATH", "")
+                path_dirs = path.split(os.pathsep)
+
             # Check if the command_name is a shell builtin
             if command in ["exit", "echo", "type"]:
                 print(f"{command} is a shell builtin")
             
             # Check if the command_name exsists in the PATH
-            elif:
-                path = os.environ.get("PATH", "")
-                path_dirs = path.split(os.pathsep)
-
+            else:
                 for directory in path_dirs:
                     path = os.path.join(directory, command)
+
                     if os.path.exists(path) and os.access(path, os.X_OK):
                         full_path = path
                         print(f"{command} is {full_path}")
                 
-                # If the command_name is not found
-            else:
-                print(f"{command}: not found")
+                    # If the command_name is not found
+                    else:
+                        print(f"{command}: not found")
 
         # If the user_input is not found
         else:
